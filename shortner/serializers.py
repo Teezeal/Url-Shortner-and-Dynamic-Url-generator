@@ -3,7 +3,7 @@ from wsgiref.validate import validator
 from rest_framework import serializers
 
 from shortner.helper import generate_short_url
-from .models import Urls
+from .models import Urls, Invoice
 
 class UrlsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,6 +16,13 @@ class UrlsSerializer(serializers.ModelSerializer):
         validated_data['short_url'] = generate_short_url(HINSTANCE)
         return Urls.objects.create(**validated_data)
     
+
+
+class InvoiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Invoice
+        fields = ('id', 'customer_name','invoice_number', 'amount_due', 'paid', 'dynamic_url')
+
 
 
 
